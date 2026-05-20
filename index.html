@@ -41,6 +41,58 @@ a { color: var(--mint-dark); text-decoration: none; }
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+/* Text Rotation */
+.rotate-words { display: inline-block; position: relative; vertical-align: bottom; }
+.rotate-words span {
+  display: inline-block;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  transition: opacity .5s ease, transform .5s ease;
+  transform: translateY(20px);
+}
+.rotate-words span.active {
+  opacity: 1;
+  position: relative;
+  transform: translateY(0);
+}
+
+/* Ticker */
+.ticker {
+  background: var(--navy);
+  overflow: hidden;
+  padding: 14px 0;
+  border-top: 1px solid rgba(var(--mint-rgb), .2);
+  border-bottom: 1px solid rgba(var(--mint-rgb), .2);
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 30s linear infinite;
+}
+.ticker-item {
+  flex-shrink: 0;
+  padding: 0 48px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.ticker-item .dot {
+  color: var(--mint);
+  margin-right: 12px;
+}
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Count Up */
+.count-up { font-variant-numeric: tabular-nums; }
+
 /* Layout */
 .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 section { padding: 80px 0; }
@@ -691,7 +743,7 @@ footer a { color: rgba(255,255,255,.7); display: inline-block; padding: 8px 0; m
 <section class="hero">
   <div class="hero-inner container">
     <div class="hero-badge">2026年 新規出店プロジェクト</div>
-    <h1>「作業薬剤師」から<br><span class="accent">「考える薬剤師」</span>へ。</h1>
+    <h1>「作業薬剤師」から<br><span class="accent">「<span class="rotate-words"><span class="active">考える</span><span>提案する</span><span>成長する</span><span>つなぐ</span></span>薬剤師」</span>へ。</h1>
     <p class="hero-sub">在宅医療に強いつなぐ薬局グループが、外来特化型の新店舗を越谷・清瀬にオープン。ゼロから薬局を作る立ち上げメンバーを募集しています。</p>
     <div class="hero-positions">
       <div class="hero-pos">
@@ -720,6 +772,24 @@ footer a { color: rgba(255,255,255,.7); display: inline-block; padding: 8px 0; m
     </div>
   </div>
 </section>
+
+<!-- ===== Ticker ===== -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="dot">&bull;</span>2026年 越谷・清瀬 新規出店</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>外来PJリーダー 年収750万〜</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>管理薬剤師 年収500〜600万</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>ゼロから薬局を作る立ち上げメンバー募集</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>在宅の知見を外来に還元する新しい薬局</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>給与テーブル公開 &mdash; 明確なキャリアパス</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>2026年 越谷・清瀬 新規出店</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>外来PJリーダー 年収750万〜</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>管理薬剤師 年収500〜600万</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>ゼロから薬局を作る立ち上げメンバー募集</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>在宅の知見を外来に還元する新しい薬局</span>
+    <span class="ticker-item"><span class="dot">&bull;</span>給与テーブル公開 &mdash; 明確なキャリアパス</span>
+  </div>
+</div>
 
 <!-- ===== Why ===== -->
 <section class="reveal">
@@ -784,7 +854,7 @@ footer a { color: rgba(255,255,255,.7); display: inline-block; padding: 8px 0; m
         <div class="pos-header gold-accent">
           <div class="pos-tag">Position A</div>
           <div class="pos-title">外来プロジェクトリーダー</div>
-          <div class="pos-salary">750<span>万円〜</span></div>
+          <div class="pos-salary"><span class="count-up" data-target="750">0</span><span>万円〜</span></div>
           <div class="pos-location">清瀬配置 / 年俸制＋決算賞与</div>
         </div>
         <div class="pos-body">
@@ -816,7 +886,7 @@ footer a { color: rgba(255,255,255,.7); display: inline-block; padding: 8px 0; m
         <div class="pos-header">
           <div class="pos-tag">Position B</div>
           <div class="pos-title">管理薬剤師</div>
-          <div class="pos-salary">500〜600<span>万円</span></div>
+          <div class="pos-salary"><span class="count-up" data-target="500">0</span>〜<span class="count-up" data-target="600">0</span><span>万円</span></div>
           <div class="pos-location">越谷配置 / 月給制＋賞与年2回（3ヶ月分）</div>
         </div>
         <div class="pos-body">
@@ -1047,13 +1117,48 @@ footer a { color: rgba(255,255,255,.7); display: inline-block; padding: 8px 0; m
   <p style="margin-top:8px;"><a href="mailto:recruit@wise-jmco.com">recruit@wise-jmco.com</a></p>
 </footer>
 
-<!-- ===== Scroll Reveal ===== -->
+<!-- ===== Scripts ===== -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  // Scroll Reveal
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // Text Rotation
+  const rotateContainers = document.querySelectorAll('.rotate-words');
+  rotateContainers.forEach(container => {
+    const words = container.querySelectorAll('span');
+    let current = 0;
+    setInterval(() => {
+      words[current].classList.remove('active');
+      current = (current + 1) % words.length;
+      words[current].classList.add('active');
+    }, 2500);
+  });
+
+  // Count Up
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      if (el.dataset.counted) return;
+      el.dataset.counted = '1';
+      const target = parseInt(el.dataset.target);
+      const duration = 1200;
+      const start = performance.now();
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(ease * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.count-up').forEach(el => countObs.observe(el));
 });
 </script>
 
