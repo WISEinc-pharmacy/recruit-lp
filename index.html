@@ -625,30 +625,63 @@ footer {
   padding: 32px 24px;
   font-size: .8rem;
 }
-footer a { color: rgba(255,255,255,.7); }
+footer a { color: rgba(255,255,255,.7); display: inline-block; padding: 8px 0; min-height: 44px; line-height: 28px; }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  section { padding: 56px 0; }
-  .about-grid, .positions, .stores { grid-template-columns: 1fr; }
-  .benefits-grid { grid-template-columns: 1fr 1fr; }
-  .hero-positions { flex-direction: column; }
+  section { padding: 48px 0; }
+  .container { padding: 0 16px; }
+  .about-grid, .positions, .stores { grid-template-columns: 1fr; gap: 20px; }
+  .benefits-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hero-positions { flex-direction: column; gap: 12px; }
+  .hero-inner { padding: 60px 0 40px; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero-sub { font-size: .95rem; margin-bottom: 28px; }
+  .hero-badge { font-size: .78rem; margin-bottom: 16px; }
+  .hero-pos { padding: 14px 20px; }
+  .hero-pos-salary { font-size: 1.2rem; }
+  .video-section { padding: 40px 0 56px; }
+  .video-section h2 { font-size: 1.2rem; }
+  .section-header { margin-bottom: 32px; }
+  .section-header h2 { font-size: 1.3rem; }
+  .about-card { padding: 24px 20px; }
   .gap-flow { flex-direction: column; gap: 0; }
   .gap-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .gap-box { min-width: auto; padding: 16px 20px; }
   .gap-box-highlight { transform: scale(1); }
-  .career-path { flex-direction: column; align-items: center; }
+  .gap-section h2 { font-size: 1.2rem; }
+  .pos-header { padding: 20px 20px 16px; }
+  .pos-body { padding: 20px; }
+  .pos-salary { font-size: 1.5rem; }
+  .career-path { flex-direction: column; align-items: center; gap: 8px; }
+  .career-step { padding: 16px 12px; }
   .career-step::after {
     top: auto;
     bottom: -8px;
     right: 50%;
     transform: translateX(50%) rotate(90deg);
   }
+  .career-circle { width: 56px; height: 56px; }
+  .store-card { padding: 24px 20px; }
+  .store-info li { flex-direction: column; gap: 2px; padding: 10px 0; }
+  .store-info .label { min-width: auto; font-size: .82rem; }
+  .benefit-item { padding: 20px 16px; }
   .flow-steps { flex-direction: column; gap: 24px; }
   .flow-step::after { display: none; }
-  .link-cards { flex-direction: column; align-items: center; }
+  .company-table th, .company-table td { padding: 10px 12px; font-size: .85rem; }
+  .company-table th { width: 90px; }
+  .link-cards { flex-direction: column; align-items: stretch; }
+  .link-card { min-width: auto; padding: 20px 24px; }
+  .links-section h2 { font-size: 1.2rem; }
 }
 @media (max-width: 480px) {
+  .container { padding: 0 14px; }
   .benefits-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.4rem; }
+  .pos-title { font-size: 1.05rem; }
+  .pos-salary { font-size: 1.3rem; }
+  .company-table th { display: block; width: auto; padding-bottom: 2px; border-bottom: none; }
+  .company-table td { display: block; padding-top: 2px; }
 }
 </style>
 </head>
