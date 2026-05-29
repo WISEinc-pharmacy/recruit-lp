@@ -42,6 +42,49 @@ body { font-family: var(--font); color: var(--text); background: var(--bg); line
 img { max-width: 100%; display: block; }
 a { color: var(--blue); text-decoration: none; }
 
+/* News Banner */
+.news-banner {
+  background: var(--blue);
+  overflow: hidden;
+  padding: 10px 0;
+  position: relative;
+}
+.news-track {
+  display: flex;
+  width: max-content;
+  animation: news-scroll 20s linear infinite;
+}
+.news-item {
+  flex-shrink: 0;
+  padding: 0 48px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+.news-item .news-tag {
+  display: inline-block;
+  background: rgba(255,255,255,.25);
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: .72rem;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.news-item .news-tag.urgent {
+  background: #FCD34D;
+  color: #92400E;
+}
+.news-item .news-tag.open {
+  background: rgba(255,255,255,.25);
+  color: #fff;
+}
+@keyframes news-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* Animations */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -747,6 +790,16 @@ footer a { color: rgba(255,255,255,.8); display: inline-block; padding: 8px 0; m
 </style>
 </head>
 <body>
+
+<!-- ===== News Banner ===== -->
+<div class="news-banner">
+  <div class="news-track">
+    <span class="news-item"><span class="news-tag urgent">選考中</span>エリアマネージャー（750万〜）現在3名から選考中 &mdash; 希望者はお早めにご連絡ください</span>
+    <span class="news-item"><span class="news-tag open">募集中</span>管理薬剤師・一般薬剤師・パート・フリーランス &mdash; 積極採用中</span>
+    <span class="news-item"><span class="news-tag urgent">選考中</span>エリアマネージャー（750万〜）現在3名から選考中 &mdash; 希望者はお早めにご連絡ください</span>
+    <span class="news-item"><span class="news-tag open">募集中</span>管理薬剤師・一般薬剤師・パート・フリーランス &mdash; 積極採用中</span>
+  </div>
+</div>
 
 <!-- ===== Hero ===== -->
 <section class="hero">
