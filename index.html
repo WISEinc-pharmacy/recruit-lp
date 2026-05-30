@@ -1526,7 +1526,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.count-up').forEach(el => countObs.observe(el));
 });
 
-// CTA form handler — Gmail API経由でrecruit@から自動返信
+// CTA form handler — GAS経由でrecruit@から自動返信
 async function sendCTA(e, form) {
   e.preventDefault();
   const btn = form.querySelector('button');
@@ -1542,7 +1542,7 @@ async function sendCTA(e, form) {
   result.style.display = 'none';
 
   try {
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
       const iframe = document.createElement('iframe');
       iframe.name = 'cta-iframe-' + Date.now();
       iframe.style.display = 'none';
@@ -1557,19 +1557,19 @@ async function sendCTA(e, form) {
         f.appendChild(inp);
       }
       document.body.appendChild(f);
-      iframe.onload = () => { document.body.removeChild(iframe); document.body.removeChild(f); resolve(); };
+      iframe.onload = () => {
+        try { document.body.removeChild(iframe); } catch(x) {}
+        try { document.body.removeChild(f); } catch(x) {}
+        resolve();
+      };
       setTimeout(() => resolve(), 5000);
       f.submit();
     });
-    {
-      btn.textContent = '送信する';
-      btn.disabled = false;
-      result.className = 'cta-result success';
-      result.innerHTML = 'お問い合わせありがとうございます。<br><strong>recruit@wise-jmco.com</strong> から確認メールをお送りしました。<br>届いていない場合はメールアドレスの入力間違い、または迷惑メールフォルダをご確認ください。<br>お電話でもお問い合わせいただけます: <strong>04-7161-8904</strong>';
-      form.reset();
-    } else {
-      throw new Error('送信に失敗しました');
-    }
+    btn.textContent = '送信する';
+    btn.disabled = false;
+    result.className = 'cta-result success';
+    result.innerHTML = 'お問い合わせありがとうございます。<br><strong>recruit@wise-jmco.com</strong> から確認メールをお送りしました。<br>届いていない場合はメールアドレスの入力間違い、または迷惑メールフォルダをご確認ください。<br>お電話でもお問い合わせいただけます: <strong>04-7161-8904</strong>';
+    form.reset();
   } catch (err) {
     btn.textContent = '送信する';
     btn.disabled = false;
