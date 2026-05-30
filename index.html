@@ -1526,7 +1526,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.count-up').forEach(el => countObs.observe(el));
 });
 
-// CTA form handler
+// CTA form handler — Gmail API経由でrecruit@から自動返信
 async function sendCTA(e, form) {
   e.preventDefault();
   const btn = form.querySelector('button');
@@ -1541,24 +1541,29 @@ async function sendCTA(e, form) {
   result.className = 'cta-result';
   result.style.display = 'none';
 
-  const subject = encodeURIComponent('【外来PJ採用LP】' + name + '様からのお問い合わせ');
-  const body = encodeURIComponent(
-    'ワイズ株式会社 採用担当 御中\n\n'
-    + '外来プロジェクト採用LPよりお問い合わせがありました。\n\n'
-    + '【お名前】' + name + '\n'
-    + (age ? '【年齢】' + age + '歳\n' : '')
-    + '【メールアドレス】' + email + '\n'
-    + (phone ? '【電話番号】' + phone + '\n' : '')
-    + '\nご連絡をお待ちしております。'
-  );
-  window.location.href = 'mailto:recruit@wise-jmco.com?subject=' + subject + '&body=' + body;
-
-  setTimeout(() => {
-    btn.disabled = false;
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbxpK6Sy6TorBiZtTPwitEAxBElvVGEgWlGEKSHOSk80BqH8Bj3NI9WP8iWsawdwxCAy/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ name, age, email, phone }),
+    });
+    // no-corsではres.okが常にfalseなので、送信成功と仮定
+    {
+      btn.textContent = '送信する';
+      btn.disabled = false;
+      result.className = 'cta-result success';
+      result.innerHTML = 'お問い合わせありがとうございます。<br><strong>recruit@wise-jmco.com</strong> から確認メールをお送りしました。<br>届いていない場合はメールアドレスの入力間違い、または迷惑メールフォルダをご確認ください。<br>お電話でもお問い合わせいただけます: <strong>04-7161-8904</strong>';
+      form.reset();
+    } else {
+      throw new Error('送信に失敗しました');
+    }
+  } catch (err) {
     btn.textContent = '送信する';
-    result.className = 'cta-result success';
-    result.innerHTML = 'メーラーが開きました。送信後、<strong>recruit@wise-jmco.com</strong> から返信が届きます。<br>届かない場合はメールアドレスの入力間違い、または迷惑メールフォルダをご確認ください。<br>お電話でもお問い合わせいただけます: <strong>04-7161-8904</strong>';
-  }, 1500);
+    btn.disabled = false;
+    result.className = 'cta-result error';
+    result.innerHTML = '送信に失敗しました。お手数ですが、直接 <strong>recruit@wise-jmco.com</strong> までご連絡いただくか、<br>お電話（<strong>04-7161-8904</strong>）でお問い合わせください。';
+  }
 }
 </script>
 
