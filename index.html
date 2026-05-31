@@ -896,11 +896,18 @@ function sendCTA(e, form) {
   setTimeout(function() {
     if (done) return;
     done = true;
-    btn.textContent = '送信する';
-    btn.disabled = false;
+    btn.textContent = '送信完了';
+    btn.style.background = '#059669';
+    btn.style.boxShadow = '0 4px 14px rgba(5,150,105,.35)';
     result.className = 'cta-result success';
     result.innerHTML = 'お問い合わせありがとうございます。<br><strong>recruit@wise-jmco.com</strong> から確認メールをお送りしました。<br>届いていない場合はメールアドレスの入力間違い、または迷惑メールフォルダをご確認ください。<br>お電話でもお問い合わせいただけます: <strong>04-7161-8904</strong>';
     form.reset();
+    setTimeout(function() {
+      btn.textContent = '送信する';
+      btn.disabled = false;
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+    }, 4000);
   }, 3000);
 
   f.submit();
